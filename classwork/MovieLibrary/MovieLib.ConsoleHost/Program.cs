@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Your Name
+ * ITSE 1430
+ * Lab #
+ */
+using System;
 
 namespace MovieLib.ConsoleHost
 {
