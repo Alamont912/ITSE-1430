@@ -34,6 +34,10 @@ namespace Demo
 
             //Guid - "Globally Unique Identifier" Used to statistically guarantee uniqueness
 
+
+            //Arithmetic Operators
+
+            // + plus   - minus     * multiply  / divide    % modulus
         }
     }
 }

@@ -13,11 +13,10 @@ namespace MovieLib.ConsoleHost
         static void Main(string[] args)
         {
             //TODO: Display a menu
-
             char input = DisplayMenu();
 
             //TODO: Handle input
-            if (input == 'A')
+            if(input == 'A')
                 AddMovie();
         }
 
@@ -28,21 +27,50 @@ namespace MovieLib.ConsoleHost
             int releaseYear = ReadInt32("Enter the release year: ", 1900);
             string rating = ReadString("Enter a rating (e.g. PG, PG-13): ", true);
             string genre = ReadString("Enter a genre (optional): ", false);
-            bool isColor;
+            bool isColor = ReadBoolean("In color? (Y/N) ");
             string description = ReadString("Enter a description (optional): ", false);
+        }
+
+        static bool ReadBoolean ( string message )
+        {
+            //TODO: Fix prompt
+            Console.Write(message);
+
+            do
+            {
+                ConsoleKeyInfo key = Console.ReadKey(); //read keys as users type them
+
+                //Validate
+                if (key.Key == ConsoleKey.Y)    //handles case-sensitivity
+                {
+                    Console.WriteLine();
+                    return true;
+                } 
+                else if (key.Key == ConsoleKey.N)
+                {
+                    Console.WriteLine();
+                    return false;
+                };
+            } while (true);
         }
 
         private static int ReadInt32(string message, int minimumValue)
         {
             Console.Write(message);
-            string input = Console.ReadLine();
 
-            //TODO: Validate input
-            int result = Int32.Parse(input);    //string to int, Double.Parse(), Int64.Parse()
-            if (result >= minimumValue)
-                return result;
+            while(true)
+            {
+                string input = Console.ReadLine();
 
-            return -1;
+                //TODO: Validate input
+                //int result;
+                //int result = Int32.Parse(input);    //string to int, Double.Parse(), Int64.Parse()
+                if (Int32.TryParse(input, out int result))   //parsing, but returns output param 
+                    if (result >= minimumValue)         //indicating success
+                        return result;
+
+                Console.WriteLine("Value must be >= " + minimumValue);
+            };
         }
 
         //Functions are PascalCased verbs and should do a single, logical thing
