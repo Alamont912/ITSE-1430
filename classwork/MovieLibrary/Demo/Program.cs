@@ -38,6 +38,24 @@ namespace Demo
             //Arithmetic Operators
 
             // + plus   - minus     * multiply  / divide    % modulus
+
+
+
+            //Strings
+
+            var payRate = 8.75;
+
+            var payRateString = payRate.ToString();
+
+            //escape sequences - character sequence that represents something unprintable
+            // \n - newline
+            //  \t - tab
+            //  \\ - single slash
+            //  \" - double quote
+            string literal = "Hellow World\nBob\t";
+            string filePath = "C:\\windows\\system32";
+            string filePath2 = @"C:\windows\system32";  //verbatim strings have no escape sequences
+                                                        //and are used for file locations
         }
     }
 }
