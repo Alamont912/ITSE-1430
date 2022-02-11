@@ -13,6 +13,7 @@ namespace MovieLib.ConsoleHost
         static void Main(string[] args)
         {
             //TODO: Display a menu
+            bool menuLoop = true;
             do
             {
                 char input = DisplayMenu();
@@ -34,21 +35,43 @@ namespace MovieLib.ConsoleHost
                     case 'V':
                     case 'v': ViewMovie(); break;
 
+                    case 'D':
+                    case 'd': DeleteMovie(); break;
+
                     case 'Q':
                     case 'q':
                     {
                         if (ConfirmQuit())
-                            break;
+                            menuLoop = false;
                         break;
                     };
                     default: Console.WriteLine("Invalid option."); break;
                 };
-            } while (true);
+            } while (menuLoop);
+        }
+
+        private static void DeleteMovie ()
+        {
+            if (String.IsNullOrEmpty(title))
+            {
+                Console.WriteLine("No movie to delete.");
+                return;
+            };
+
+            //delete the movie
+            if (ReadBoolean($"Are you sure you want to delete '{title}'? (Y/N) "))
+                title = "";
         }
 
         private static void ViewMovie ()
         {
             //TODO: Does movie exist?
+            if(String.IsNullOrEmpty(title))
+            {
+                Console.WriteLine("No movie to view.");
+                return;
+            }
+
             Console.WriteLine(title);
 
             //Console.WriteLine(duration);
@@ -155,39 +178,49 @@ namespace MovieLib.ConsoleHost
         private static string ReadString(string message, bool required)
         {
             Console.WriteLine(message);
-            string input = Console.ReadLine();
+            do
+            {
+                string input = Console.ReadLine();
 
-            //TODO: Validate input, if required
+                //TODO: Validate input, if required
+                if (!required || !String.IsNullOrEmpty(input))
+                    return input;
 
-            return input;
+                Console.WriteLine("Value is required.");
+            } while (true);
+
         }
 
         static char DisplayMenu()
         {
+            Console.WriteLine("Movie Library");
+            //Console.WriteLine("--------------");
+            Console.WriteLine("".PadLeft(20, '-'));
             Console.WriteLine("A)dd Movie");
             Console.WriteLine("V)iew Movie");
             Console.WriteLine("E)dit Movie");
             Console.WriteLine("D)elete Movie");
             Console.WriteLine("Q)uit");
+            Console.WriteLine("".PadLeft(20, '-'));
 
-            string input = Console.ReadLine();
-
-            //Validate Input
-            if (input == "A")
-                return 'A';
-            else if (input == "V")
-                return 'V';
-            else if (input == "E")
-                return 'E';
-            else if (input == "D")
-                return 'D';
-            else if (input == "Q")
-                return 'Q';
-            else
+            do
             {
-                Console.WriteLine("Invalid Input");
-                return 'X';
-            };
+                string input = Console.ReadLine();
+
+                //Validate Input
+                if (String.Compare(input, "A", true) == 0)
+                    return 'A';
+                else if (String.Compare(input, "V", true) == 0)
+                    return 'V';
+                else if (String.Compare(input, "E", true) == 0)
+                    return 'E';
+                else if (String.Compare(input, "D", true) == 0)
+                    return 'D';
+                else if (String.Compare(input, "Q", true) == 0)
+                    return 'Q';
+                else
+                    Console.WriteLine("Invalid Input");
+            } while (true);
         }
     }
 }
