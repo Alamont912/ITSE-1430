@@ -6,7 +6,7 @@ namespace CharacterCreator.ConsoleHost
     {
         static void Main ( string[] args )
         {
-            Console.WriteLine("Thomas J. Lupinacci\nITSE-1430\n2/14/22");
+            Console.WriteLine("Thomas J. Lupinacci\nITSE-1430\n2/14/22\n\n");
 
             bool done = false;
 
@@ -104,31 +104,31 @@ namespace CharacterCreator.ConsoleHost
                 return;
             }
 
-            if (ReadBoolean("Change yer name? (Y/N)"))
+            if (ReadBoolean($"Change yer name? ({name}) (Y/N)"))
                 name = ReadString("What's yer name, pardner?", true);
 
-            if (ReadBoolean("Change yer hobby? (Y/N)"))
+            if (ReadBoolean($"Change yer hobby? ({hobby}) (Y/N)"))
                 hobby = DisplayHobbyMenu();
 
-            if (ReadBoolean("Change yer profession? (Y/N)"))
+            if (ReadBoolean($"Change yer profession? ({profession}) (Y/N)"))
                 profession = DisplayProfessionMenu();
 
-            if (ReadBoolean("Change yer GRIT? (Y/N)"))
+            if (ReadBoolean($"Change yer GRIT? ({statGrit}) (Y/N)"))
                 statGrit = ReadInt("Can you take a hit? What's yer GRIT? : ", 1, 100);
 
-            if (ReadBoolean("Change yer MUSCLE? (Y/N)"))
+            if (ReadBoolean($"Change yer MUSCLE? ({statMuscle}) (Y/N)"))
                 statMuscle = ReadInt("Ready fer a tussel? What's yer MUSCLE? : ", 1, 100);
 
-            if (ReadBoolean("Change yer MYSTICALLITY? (Y/N)"))
+            if (ReadBoolean($"Change yer MYSTICALLITY? ({statMysticallity}) (Y/N)"))
                 statMysticallity = ReadInt("Want to bend yer reality? What's yer MYSTICALLITY? : ", 1, 100);
 
-            if (ReadBoolean("Change yer MOXIE? (Y/N)"))
+            if (ReadBoolean($"Change yer MOXIE? ({statMoxie}) (Y/N)"))
                 statMoxie = ReadInt("Need a sharp eye to be foxy? What's yer MOXIE? : ", 1, 100);
 
-            if (ReadBoolean("Change yer GUMPTION? (Y/N)"))
+            if (ReadBoolean($"Change yer GUMPTION? ({statGumption}) (Y/N)"))
                 statGumption = ReadInt("Need speed to function? What's yer GUMPTION? : ", 1, 100);
 
-            if (ReadBoolean("Change yer backstory? (Y/N)"))
+            if (ReadBoolean($"Change yer backstory? ({backstory}) (Y/N)"))
                 backstory = ReadString("Have a tale to tell? Got a backstory? : ", false);
         }
 
@@ -140,7 +140,9 @@ namespace CharacterCreator.ConsoleHost
                 return;
             }
 
+            Console.WriteLine("#####################");
             Console.WriteLine(name);
+            Console.WriteLine("#####################");
             Console.WriteLine($"Hobby: {hobby}\n" +
                 $"Profession: {profession}\n" +
                 $"\n" +
@@ -181,11 +183,13 @@ namespace CharacterCreator.ConsoleHost
 
         private static string DisplayProfessionMenu ()
         {
+            Console.WriteLine("---------------------");
             Console.WriteLine("[R]anchhand");
             Console.WriteLine("[C]ookie");
             Console.WriteLine("[S]windler");
             Console.WriteLine("[T]raveler");
             Console.WriteLine("[O]utlaw");
+            Console.WriteLine("---------------------");
 
             do
             {
@@ -208,11 +212,13 @@ namespace CharacterCreator.ConsoleHost
 
         private static string DisplayHobbyMenu ()
         {
+            Console.WriteLine("---------------------");
             Console.WriteLine("[C]ow Puncher");
             Console.WriteLine("[B]eanslinger");
             Console.WriteLine("[S]nakeoiler");
             Console.WriteLine("[W]anderer");
             Console.WriteLine("[D]eprived");
+            Console.WriteLine("---------------------");
 
             do
             {
@@ -247,11 +253,15 @@ namespace CharacterCreator.ConsoleHost
 
         private static char DisplayMenu ()
         {
+            Console.WriteLine("---------------------");
+            Console.WriteLine("Legends of The West");
+            Console.WriteLine("---------------------");
             Console.WriteLine("[C]reate Character");
             Console.WriteLine("[V]iew Character");
             Console.WriteLine("[E]dit Character");
             Console.WriteLine("[D]elete Character");
             Console.WriteLine("[Q]uit");
+            Console.WriteLine("---------------------");
 
             do
             {
