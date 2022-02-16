@@ -52,27 +52,27 @@ namespace MovieLib.ConsoleHost
 
         private static void DeleteMovie ()
         {
-            if (String.IsNullOrEmpty(title))
+            if (String.IsNullOrEmpty(movie.title))
             {
                 Console.WriteLine("No movie to delete.");
                 return;
             };
 
             //delete the movie
-            if (ReadBoolean($"Are you sure you want to delete '{title}'? (Y/N) "))
-                title = "";
+            if (ReadBoolean($"Are you sure you want to delete '{movie.title}'? (Y/N) "))
+                movie.title = "";
         }
 
         private static void ViewMovie ()
         {
             //TODO: Does movie exist?
-            if(String.IsNullOrEmpty(title))
+            if(String.IsNullOrEmpty(movie.title))
             {
                 Console.WriteLine("No movie to view.");
                 return;
             }
 
-            Console.WriteLine(title);
+            Console.WriteLine(movie.title);
 
             //Console.WriteLine(duration);
             //Console.WriteLine(rating);
@@ -86,7 +86,7 @@ namespace MovieLib.ConsoleHost
             //Console.WriteLine(temp);
 
             //String interpolation
-            Console.WriteLine($"{releaseYear} ({duration} mins) {rating}");
+            Console.WriteLine($"{movie.releaseYear} ({movie.duration} mins) {movie.rating}");
 
             //Console.WriteLine(genre);
             //Console.WriteLine(isColor);
@@ -97,9 +97,9 @@ namespace MovieLib.ConsoleHost
             //    Console.WriteLine($"{genre} (black and white)");
 
             //conditional operator
-            Console.WriteLine($"{genre} ({(isColor ? "Color" : "Black and White")})");
+            Console.WriteLine($"{movie.genre} ({(movie.isColor ? "Color" : "Black and White")})");
 
-            Console.WriteLine(description);
+            Console.WriteLine(movie.description);
         }
 
         private static bool ConfirmQuit ()
@@ -109,23 +109,19 @@ namespace MovieLib.ConsoleHost
 
         private static void AddMovie()
         {
-            title = ReadString("Enter a movie title: ", true);
-            duration = ReadInt32("Enter duration in minutes (>= 0): ", 0);
-            releaseYear = ReadInt32("Enter the release year: ", 1900);
-            rating = ReadString("Enter a rating (e.g. PG, PG-13): ", true);
-            genre = ReadString("Enter a genre (optional): ", false);
-            isColor = ReadBoolean("In color? (Y/N) ");
-            description = ReadString("Enter a description (optional): ", false);
+            movie = new Movie();
+
+            movie.title = ReadString("Enter a movie title: ", true);
+            movie.duration = ReadInt32("Enter duration in minutes (>= 0): ", 0);
+            movie.releaseYear = ReadInt32("Enter the release year: ", 1900);
+            movie.rating = ReadString("Enter a rating (e.g. PG, PG-13): ", true);
+            movie.genre = ReadString("Enter a genre (optional): ", false);
+            movie.isColor = ReadBoolean("In color? (Y/N) ");
+            movie.description = ReadString("Enter a description (optional): ", false);
         }
 
         //Unit 1 only!!     Could this be a global variable?
-        static string title;
-        static int duration;
-        static int releaseYear;
-        static string rating;           //time for crab
-        static string genre;
-        static bool isColor;
-        static string description;
+        static Movie movie;
 
         static bool ReadBoolean ( string message )
         {
