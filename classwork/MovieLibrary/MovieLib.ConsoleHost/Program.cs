@@ -52,27 +52,28 @@ namespace MovieLib.ConsoleHost
 
         private static void DeleteMovie ()
         {
-            if (String.IsNullOrEmpty(movie.title))
+            if (movie == null)
             {
                 Console.WriteLine("No movie to delete.");
                 return;
             };
 
             //delete the movie
-            if (ReadBoolean($"Are you sure you want to delete '{movie.title}'? (Y/N) "))
-                movie.title = "";
+            if (ReadBoolean($"Are you sure you want to delete '{movie._title}'? (Y/N) "))
+                movie = null;
         }
 
         private static void ViewMovie ()
         {
             //TODO: Does movie exist?
-            if(String.IsNullOrEmpty(movie.title))
+            //if(String.IsNullOrEmpty(movie.title))
+            if(movie == null)
             {
                 Console.WriteLine("No movie to view.");
                 return;
             }
 
-            Console.WriteLine(movie.title);
+            Console.WriteLine(movie._title);
 
             //Console.WriteLine(duration);
             //Console.WriteLine(rating);
@@ -86,7 +87,7 @@ namespace MovieLib.ConsoleHost
             //Console.WriteLine(temp);
 
             //String interpolation
-            Console.WriteLine($"{movie.releaseYear} ({movie.duration} mins) {movie.rating}");
+            Console.WriteLine($"{movie._releaseYear} ({movie._duration} mins) {movie._rating}");
 
             //Console.WriteLine(genre);
             //Console.WriteLine(isColor);
@@ -97,9 +98,9 @@ namespace MovieLib.ConsoleHost
             //    Console.WriteLine($"{genre} (black and white)");
 
             //conditional operator
-            Console.WriteLine($"{movie.genre} ({(movie.isColor ? "Color" : "Black and White")})");
+            Console.WriteLine($"{movie._genre} ({(movie._isClassic ? "Classic" : "")})");
 
-            Console.WriteLine(movie.description);
+            Console.WriteLine(movie._description);
         }
 
         private static bool ConfirmQuit ()
@@ -111,13 +112,26 @@ namespace MovieLib.ConsoleHost
         {
             movie = new Movie();
 
-            movie.title = ReadString("Enter a movie title: ", true);
-            movie.duration = ReadInt32("Enter duration in minutes (>= 0): ", 0);
-            movie.releaseYear = ReadInt32("Enter the release year: ", 1900);
-            movie.rating = ReadString("Enter a rating (e.g. PG, PG-13): ", true);
-            movie.genre = ReadString("Enter a genre (optional): ", false);
-            movie.isColor = ReadBoolean("In color? (Y/N) ");
-            movie.description = ReadString("Enter a description (optional): ", false);
+            do
+            {
+
+                movie.Title = ReadString("Enter a movie title: ", true);
+                movie._duration = ReadInt32("Enter duration in minutes (>= 0): ", 0);
+                movie._releaseYear = ReadInt32("Enter the release year: ", 1900);
+                movie._rating = ReadString("Enter a rating (e.g. PG, PG-13): ", true);
+                movie._genre = ReadString("Enter a genre (optional): ", false);
+                movie._isClassic = ReadBoolean("Is it a classic? (Y/N) ");
+                movie._description = ReadString("Enter a description (optional): ", false);
+
+                movie.CalculateBlackAndWhite();
+
+                var error = movie.Validate();
+
+                if (String.IsNullOrEmpty(error))
+                    return;
+
+                Console.WriteLine(error);
+            } while (true);
         }
 
         //Unit 1 only!!     Could this be a global variable?
