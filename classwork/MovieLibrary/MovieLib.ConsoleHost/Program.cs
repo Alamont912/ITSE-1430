@@ -59,7 +59,7 @@ namespace MovieLib.ConsoleHost
             };
 
             //delete the movie
-            if (ReadBoolean($"Are you sure you want to delete '{movie._title}'? (Y/N) "))
+            if (ReadBoolean($"Are you sure you want to delete '{movie.Title}'? (Y/N) "))
                 movie = null;
         }
 
@@ -73,7 +73,7 @@ namespace MovieLib.ConsoleHost
                 return;
             }
 
-            Console.WriteLine(movie._title);
+            Console.WriteLine(movie.Title);
 
             //Console.WriteLine(duration);
             //Console.WriteLine(rating);
@@ -87,7 +87,7 @@ namespace MovieLib.ConsoleHost
             //Console.WriteLine(temp);
 
             //String interpolation
-            Console.WriteLine($"{movie._releaseYear} ({movie._duration} mins) {movie._rating}");
+            Console.WriteLine($"{movie.ReleaseYear} ({movie.Duration} mins) {movie.Rating}");
 
             //Console.WriteLine(genre);
             //Console.WriteLine(isColor);
@@ -98,9 +98,9 @@ namespace MovieLib.ConsoleHost
             //    Console.WriteLine($"{genre} (black and white)");
 
             //conditional operator
-            Console.WriteLine($"{movie._genre} ({(movie._isClassic ? "Classic" : "")})");
+            Console.WriteLine($"{movie.Genre} ({(movie.IsClassic ? "Classic" : "")})");
 
-            Console.WriteLine(movie._description);
+            Console.WriteLine(movie.Description);
         }
 
         private static bool ConfirmQuit ()
@@ -112,18 +112,23 @@ namespace MovieLib.ConsoleHost
         {
             movie = new Movie();
 
+            object val = 10;
+            val = "Hello";        //catch all tyop, performance suffers from this, inferrs type
+            val = null;
+
+            //movie.IsBlackAndWhite = false;  //setter is blank/non-existent, so this is ignored/read only
             do
             {
 
                 movie.Title = ReadString("Enter a movie title: ", true);
-                movie._duration = ReadInt32("Enter duration in minutes (>= 0): ", 0);
-                movie._releaseYear = ReadInt32("Enter the release year: ", 1900);
-                movie._rating = ReadString("Enter a rating (e.g. PG, PG-13): ", true);
-                movie._genre = ReadString("Enter a genre (optional): ", false);
-                movie._isClassic = ReadBoolean("Is it a classic? (Y/N) ");
-                movie._description = ReadString("Enter a description (optional): ", false);
+                movie.Duration = ReadInt32("Enter duration in minutes (>= 0): ", 0);
+                movie.ReleaseYear = ReadInt32("Enter the release year: ", 1900);
+                movie.Rating = ReadString("Enter a rating (e.g. PG, PG-13): ", true);
+                movie.Genre = ReadString("Enter a genre (optional): ", false);
+                movie.IsClassic = ReadBoolean("Is it a classic? (Y/N) ");
+                movie.Description = ReadString("Enter a description (optional): ", false);
 
-                movie.CalculateBlackAndWhite();
+                //movie.CalculateBlackAndWhite();
 
                 var error = movie.Validate();
 
