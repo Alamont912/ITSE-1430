@@ -237,5 +237,75 @@ namespace MovieLib.ConsoleHost
                     Console.WriteLine("Invalid Input");
             } while (true);
         }
+
+        static void Display(object data)
+        {
+            //assume a string
+
+            //C-style cast - runtime error if wrong, no way to validate at runtime,
+            //still compile time safe
+            var dataString = (string)data;
+
+            //Type checking
+
+            //is operator - returns boolean if correct type, still needs type cast
+            if(data is string)
+            {
+                dataString = (string)data;
+            };
+
+            //as operator - safe, returns null if conversion is not possible, so it only
+            // supports types that support null (strings, objects, class types).
+            dataString = data as string;
+            if(dataString != null)
+            {
+                
+            };
+
+            //pattern-matching
+            if(data is string dataStringTwo)    //scope of variable is the if statement
+            {
+                
+            };
+
+            //The Two Type Catagories:
+
+            //Reference
+            //-----------------------------
+            //Classes
+            //
+            //Always on the Heap, (new / dynamic memory / global memory), reference of some data
+            //
+            // M2 = M1 -> M2 points to the same address M1 points to, values are now shared
+            //
+            // M2 == M1 -> Only 'equal' if they refer to the same object instance in memory, basically a pointer comparison, formally known as "Reference Semantics"
+            //
+            //These can be null.
+            //
+            // Initialization construction can be customized.
+            //
+            // Supports inheritance.
+            //
+            // Can be mutable. The ability to change values is encouraged.
+
+            //Value
+            //-----------------------------
+            //Structs
+            //
+            //Always on the Call Stack, therefore always available, value is directly on stack
+            //
+            // P2 = P1 -> Two copies, same sets of values, still independent of each other
+            //
+            // P2 == P1 -> Only 'equal' if all values are equal, formally known as "Value Semantics"
+            //
+            //These can never be null. It would not make sense.
+            //
+            // 0 initialized by the runtime.
+            //
+            // Does not support inheritance.
+            //
+            // Must be immutable. Once it has a value, it should not change.
+        
+        }
     }
 }

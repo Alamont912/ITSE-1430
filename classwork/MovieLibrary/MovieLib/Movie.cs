@@ -23,7 +23,8 @@ namespace MovieLib
             //get { return !String.IsNullOrEmpty(_title) ? _title : ""; }     //getter
             //get { return (_title != null) ? _title : " "; }
             get { return _title ?? ""; }    //null coalescing 
-            set { _title = (value != null) ? value.Trim() : null; }     //setter
+            //set { _title = (value != null) ? value.Trim() : null; }     //setter
+            set { _title = value?.Trim(); } //null conditional
         }
         private string _title;
 
