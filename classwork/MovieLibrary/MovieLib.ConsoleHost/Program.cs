@@ -141,6 +141,9 @@ namespace MovieLib.ConsoleHost
 
         //Unit 1 only!!     Could this be a global variable?
         static Movie movie;
+        static MemoryMovieDatabase _movies = new MemoryMovieDatabase();
+
+
 
         static bool ReadBoolean ( string message )
         {
