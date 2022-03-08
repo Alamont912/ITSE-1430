@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Thomas J. Lupinacci III
+ * 3/7/22
+ * ITSE 1430
+*/
+using System;
 
 namespace ThomasJLupinacci.AdventureGame
 {
@@ -180,10 +185,18 @@ namespace ThomasJLupinacci.AdventureGame
     /// </summary>
     public class Player
     {
+        /// <summary>
+        /// Sets the Player's Current Room to the passed Room.
+        /// </summary>
+        /// <param name="Start"></param>
         public Player(Room Start)
         {
             CurrentRoom = Start;
         }
+
+        /// <summary>
+        /// Keeps track of the Player's Current Room.
+        /// </summary>
         public Room CurrentRoom { get; set; }
     }
 }
