@@ -12,6 +12,12 @@ namespace ThomasJLupinacci.AdventureGame.ConsoleHost
     {
         static void Main(string[] args)
         {
+            //creates world
+            World GameWorld = new World();
+
+            //spawns player at starting room of world
+            Player myPlayer = new Player(GameWorld.StartingRoom);
+
             DisplayIntro();
 
             bool menuLoop = true;
@@ -19,6 +25,9 @@ namespace ThomasJLupinacci.AdventureGame.ConsoleHost
             //game loop
             do
             {
+                Console.WriteLine($"{myPlayer.CurrentRoom.Name}\n" +
+                                  $"{myPlayer.CurrentRoom.Description}");
+
                 int input = DisplayMenu();
                 
                 switch(input)
@@ -30,7 +39,7 @@ namespace ThomasJLupinacci.AdventureGame.ConsoleHost
                         break;
                     };
 
-                    case 1: Move(); break;
+                    case 1: Move(myPlayer); break;
 
                     case 2: Look(); break;
 
@@ -44,12 +53,55 @@ namespace ThomasJLupinacci.AdventureGame.ConsoleHost
 
         private static void Look ()
         {
-
+            Console.WriteLine("This feature is unavailable at the moment.\n");
         }
 
-        private static void Move ()
+        private static void Move (Player myPlayer)
         {
+            Console.WriteLine("Which Direction?");
+            Console.WriteLine("".PadLeft(20, '-'));
+            Console.WriteLine("1. North");
+            Console.WriteLine("2. East");
+            Console.WriteLine("3. South");
+            Console.WriteLine("4. West");
+            Console.WriteLine("".PadLeft(20, '-'));
 
+            string input = Console.ReadLine();
+
+            switch (input)
+            {
+                case "1":
+                if (myPlayer.CurrentRoom.North != null)
+                    myPlayer.CurrentRoom = myPlayer.CurrentRoom.North;
+                else
+                    Console.WriteLine("You've hit the border! Try another direction.\n");
+                break;
+
+                case "2":
+                if (myPlayer.CurrentRoom.East != null)
+                    myPlayer.CurrentRoom = myPlayer.CurrentRoom.East;
+                else
+                    Console.WriteLine("You've hit the border! Try another direction.\n");
+                break;
+
+                case "3":
+                if (myPlayer.CurrentRoom.South != null)
+                    myPlayer.CurrentRoom = myPlayer.CurrentRoom.South;
+                else
+                    Console.WriteLine("You've hit the border! Try another direction.\n");
+                break;
+
+                case "4":
+                if (myPlayer.CurrentRoom.West != null)
+                    myPlayer.CurrentRoom = myPlayer.CurrentRoom.West;
+                else
+                    Console.WriteLine("You've hit the border! Try another direction.\n");
+                break;
+
+                default:
+                Console.WriteLine("Nevermind, then.\n");
+                break;
+            }
         }
 
         private static int DisplayMenu ()

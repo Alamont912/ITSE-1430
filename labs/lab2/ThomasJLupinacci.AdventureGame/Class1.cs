@@ -174,4 +174,16 @@ namespace ThomasJLupinacci.AdventureGame
         public Room StartingRoom { get; set; }
 
     }
+
+    /// <summary>
+    /// Represents the Player. Sets Starting Room upon creation and tracks the Player's Current Room.
+    /// </summary>
+    public class Player
+    {
+        public Player(Room Start)
+        {
+            CurrentRoom = Start;
+        }
+        public Room CurrentRoom { get; set; }
+    }
 }
