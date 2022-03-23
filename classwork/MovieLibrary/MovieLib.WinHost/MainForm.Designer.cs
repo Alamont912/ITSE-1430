@@ -29,38 +29,114 @@ namespace MovieLib.WinHost
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this._mainMenu = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._miFileExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.characterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._miCharacterAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this._miCharacterEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this._miCharacterDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._miHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this._lstMovies = new System.Windows.Forms.ListBox();
+            this._mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // _mainMenu
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.Info;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Location = new System.Drawing.Point(364, 366);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 62);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Push on butt to open door";
-            this.button1.UseVisualStyleBackColor = false;
+            this._mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.characterToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this._mainMenu.Location = new System.Drawing.Point(0, 0);
+            this._mainMenu.Name = "_mainMenu";
+            this._mainMenu.Size = new System.Drawing.Size(800, 24);
+            this._mainMenu.TabIndex = 0;
+            this._mainMenu.Text = "menuStrip1";
             // 
-            // textBox1
+            // fileToolStripMenuItem
             // 
-            this.textBox1.Location = new System.Drawing.Point(201, 192);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(263, 126);
-            this.textBox1.TabIndex = 1;
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._miFileExit});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // _miFileExit
+            // 
+            this._miFileExit.Name = "_miFileExit";
+            this._miFileExit.Size = new System.Drawing.Size(93, 22);
+            this._miFileExit.Text = "E&xit";
+            this._miFileExit.Click += new System.EventHandler(this.OnFileExit);
+            // 
+            // characterToolStripMenuItem
+            // 
+            this.characterToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._miCharacterAdd,
+            this._miCharacterEdit,
+            this._miCharacterDelete});
+            this.characterToolStripMenuItem.Name = "characterToolStripMenuItem";
+            this.characterToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.characterToolStripMenuItem.Text = "&Movie";
+            // 
+            // _miCharacterAdd
+            // 
+            this._miCharacterAdd.Name = "_miCharacterAdd";
+            this._miCharacterAdd.Size = new System.Drawing.Size(180, 22);
+            this._miCharacterAdd.Text = "&Add";
+            this._miCharacterAdd.Click += new System.EventHandler(this.OnMovieAdd);
+            // 
+            // _miCharacterEdit
+            // 
+            this._miCharacterEdit.Name = "_miCharacterEdit";
+            this._miCharacterEdit.Size = new System.Drawing.Size(180, 22);
+            this._miCharacterEdit.Text = "&Edit";
+            this._miCharacterEdit.Click += new System.EventHandler(this.OnMovieEdit);
+            // 
+            // _miCharacterDelete
+            // 
+            this._miCharacterDelete.Name = "_miCharacterDelete";
+            this._miCharacterDelete.Size = new System.Drawing.Size(180, 22);
+            this._miCharacterDelete.Text = "&Delete";
+            this._miCharacterDelete.Click += new System.EventHandler(this.OnMovieDelete);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._miHelpAbout});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "&Help";
+            // 
+            // _miHelpAbout
+            // 
+            this._miHelpAbout.Name = "_miHelpAbout";
+            this._miHelpAbout.Size = new System.Drawing.Size(107, 22);
+            this._miHelpAbout.Text = "&About";
+            this._miHelpAbout.Click += new System.EventHandler(this.OnHelpAbout);
+            // 
+            // _lstMovies
+            // 
+            this._lstMovies.FormattingEnabled = true;
+            this._lstMovies.ItemHeight = 15;
+            this._lstMovies.Location = new System.Drawing.Point(12, 39);
+            this._lstMovies.Name = "_lstMovies";
+            this._lstMovies.Size = new System.Drawing.Size(776, 394);
+            this._lstMovies.TabIndex = 1;
+            this._lstMovies.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this._lstMovies);
+            this.Controls.Add(this._mainMenu);
+            this.MainMenuStrip = this._mainMenu;
             this.Name = "MainForm";
             this.Text = "Form1";
+            this._mainMenu.ResumeLayout(false);
+            this._mainMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -68,8 +144,16 @@ namespace MovieLib.WinHost
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.MenuStrip _mainMenu;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _miFileExit;
+        private System.Windows.Forms.ToolStripMenuItem characterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _miCharacterAdd;
+        private System.Windows.Forms.ToolStripMenuItem _miCharacterEdit;
+        private System.Windows.Forms.ToolStripMenuItem _miCharacterDelete;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _miHelpAbout;
+        private System.Windows.Forms.ListBox _lstMovies;
     }
 }
 
