@@ -113,5 +113,10 @@ namespace MovieLib
         //    private set { _id = value; }    //must be more restrictive than property access mod
         //}
         //private int _id;
+
+        public override string ToString ()
+        {
+            return $"{Title} ({ReleaseYear})";
+        }
     }
 }

@@ -10,17 +10,21 @@ namespace MovieLib.WinHost
             InitializeComponent();
         }
 
-        private void OnFileExit ( object sender, EventArgs e )
+        protected override void OnFormClosing ( FormClosingEventArgs e )
         {
             //Confirm exit
             DialogResult dr = MessageBox.Show(this, "Are you sure you want to quit?", "Quit",
                                               MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (dr == DialogResult.Yes)
+            if (dr != DialogResult.Yes)
             {
-                //user clicked Yes
-                Close();
+                e.Cancel = true;
             };
+        }
+
+        private void OnFileExit ( object sender, EventArgs e )
+        {
+            Close();
         }
 
         private void OnHelpAbout ( object sender, EventArgs e )
