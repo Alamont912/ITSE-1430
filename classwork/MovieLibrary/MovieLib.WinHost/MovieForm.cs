@@ -21,7 +21,7 @@ namespace MovieLib.WinHost
 
         protected override void OnLoad ( EventArgs e )
         {
-            base.OnLoad(e);
+            base.OnLoad(e); //calls base implementation to avoid recursion 
 
             //Load UI
             if(Movie != null)
@@ -46,6 +46,10 @@ namespace MovieLib.WinHost
 
         private void OnSave ( object sender, EventArgs e )
         {
+            //Check all children for valid status and ensure validation
+            if (!ValidateChildren())
+                return;
+
             //Create a new movie
             var movie = new Movie();
 

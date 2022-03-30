@@ -53,16 +53,4 @@ namespace MovieLib
                                     //but private to everything else.
     }
 
-    public class MemoryMovieDatabase : MovieDatabase
-    {
-        public MemoryMovieDatabase () : base("Memory Movies")      //constructor chaining, but this is done automatically
-        {                                                           //unless calling an overload (one with parameters).
-            
-        }
-
-        public override void Add(Movie movie)   //override goes with virtual
-        {                                       //virtual in base class, override, in sub class
-            base.Add(movie);    //call the base's version, avoiding nasty recursion.
-        }
-    }
 }
