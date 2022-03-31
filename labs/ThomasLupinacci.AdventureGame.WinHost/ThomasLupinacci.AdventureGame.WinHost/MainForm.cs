@@ -47,7 +47,8 @@ namespace ThomasLupinacci.AdventureGame.WinHost
         {
             _lstboxCharacterList.Items.Clear();
 
-            _lstboxCharacterList.Items.Add(_character);
+            if(_character != null)
+                _lstboxCharacterList.Items.Add(_character);
         }
 
         private Character GetSelectedCharacter()

@@ -113,7 +113,7 @@ namespace MovieLib.WinHost
             // _miHelpAbout
             // 
             this._miHelpAbout.Name = "_miHelpAbout";
-            this._miHelpAbout.Size = new System.Drawing.Size(224, 26);
+            this._miHelpAbout.Size = new System.Drawing.Size(133, 26);
             this._miHelpAbout.Text = "&About";
             this._miHelpAbout.Click += new System.EventHandler(this.OnHelpAbout);
             // 
