@@ -44,6 +44,7 @@ namespace ThomasLupinacci.AdventureGame.WinHost
             character.StatMysticallity = ReadAsInt32(_txtboxStatMysticallity, -1);
             character.StatMoxie = ReadAsInt32(_txtboxStatMoxie, -1);
             character.StatGumption = ReadAsInt32(_txtboxStatGumption, -1);
+            character.Backstory = _txtboxDescription.Text;
 
             //Validate
             var error = character.Validate();
@@ -65,6 +66,24 @@ namespace ThomasLupinacci.AdventureGame.WinHost
             DialogResult = DialogResult.Cancel;
             Close();
             return;
+        }
+        protected override void OnLoad ( EventArgs e )
+        {
+            base.OnLoad(e);
+
+            //Load UI
+            if (Character != null)
+            {
+                _txtboxName.Text = Character.Name;
+                _cmbboxHobby.Text = Character.Hobby;
+                _cmbboxProfession.Text = Character.Profession;
+                _txtboxStatGrit.Text = Character.StatGrit.ToString();
+                _txtboxStatMuscle.Text = Character.StatMuscle.ToString();
+                _txtboxStatMysticallity.Text = Character.StatMysticallity.ToString();
+                _txtboxStatMoxie.Text = Character.StatMoxie.ToString();
+                _txtboxStatGumption.Text = Character.StatGumption.ToString();
+                _txtboxDescription.Text = Character.Backstory;
+            }
         }
     }
 }

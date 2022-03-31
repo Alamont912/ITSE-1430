@@ -26,7 +26,7 @@ namespace ThomasLupinacci.AdventureGame.WinHost
             form.ShowDialog(this);
         }
 
-        private void OnMovieAdd ( object sender, EventArgs e )
+        private void OnCharacterAdd ( object sender, EventArgs e )
         {
             var dlg = new CharacterForm();
 
@@ -50,6 +50,30 @@ namespace ThomasLupinacci.AdventureGame.WinHost
             _lstboxCharacterList.Items.Add(_character);
         }
 
+        private Character GetSelectedCharacter()
+        {
+            return _lstboxCharacterList.SelectedItem as Character;
+        }
+
         private Character _character;
+
+        private void OnCharacterEdit ( object sender, EventArgs e )
+        {
+            var menuItem = sender as ToolStripMenuItem;
+
+            var selectedCharacter = GetSelectedCharacter();
+            if (selectedCharacter == null)
+                return;
+
+            var dlg = new CharacterForm();
+            dlg.Character = selectedCharacter;
+
+            if (dlg.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            //Save
+            _character = dlg.Character;
+            UpdateUI();
+        }
     }
 }
