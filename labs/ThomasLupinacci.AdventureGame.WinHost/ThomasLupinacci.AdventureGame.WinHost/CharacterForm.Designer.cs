@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent ()
         {
+            this.components = new System.ComponentModel.Container();
             this._txtboxName = new System.Windows.Forms.TextBox();
             this._txtboxStatGrit = new System.Windows.Forms.TextBox();
             this._txtboxStatMuscle = new System.Windows.Forms.TextBox();
@@ -49,6 +50,8 @@
             this._lblBackstory = new System.Windows.Forms.Label();
             this._btnSave = new System.Windows.Forms.Button();
             this._btnCancel = new System.Windows.Forms.Button();
+            this._errors = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this._errors)).BeginInit();
             this.SuspendLayout();
             // 
             // _txtboxName
@@ -57,6 +60,7 @@
             this._txtboxName.Name = "_txtboxName";
             this._txtboxName.Size = new System.Drawing.Size(125, 27);
             this._txtboxName.TabIndex = 0;
+            this._txtboxName.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateName);
             // 
             // _txtboxStatGrit
             // 
@@ -65,6 +69,7 @@
             this._txtboxStatGrit.Size = new System.Drawing.Size(125, 27);
             this._txtboxStatGrit.TabIndex = 3;
             this._txtboxStatGrit.Text = "50";
+            this._txtboxStatGrit.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateStatGrit);
             // 
             // _txtboxStatMuscle
             // 
@@ -73,6 +78,7 @@
             this._txtboxStatMuscle.Size = new System.Drawing.Size(125, 27);
             this._txtboxStatMuscle.TabIndex = 4;
             this._txtboxStatMuscle.Text = "50";
+            this._txtboxStatMuscle.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateStatMuscle);
             // 
             // _txtboxStatMysticallity
             // 
@@ -81,6 +87,7 @@
             this._txtboxStatMysticallity.Size = new System.Drawing.Size(125, 27);
             this._txtboxStatMysticallity.TabIndex = 5;
             this._txtboxStatMysticallity.Text = "50";
+            this._txtboxStatMysticallity.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateStatMysticallity);
             // 
             // _txtboxStatMoxie
             // 
@@ -89,6 +96,7 @@
             this._txtboxStatMoxie.Size = new System.Drawing.Size(125, 27);
             this._txtboxStatMoxie.TabIndex = 6;
             this._txtboxStatMoxie.Text = "50";
+            this._txtboxStatMoxie.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateStatMoxie);
             // 
             // _txtboxStatGumption
             // 
@@ -97,6 +105,7 @@
             this._txtboxStatGumption.Size = new System.Drawing.Size(125, 27);
             this._txtboxStatGumption.TabIndex = 7;
             this._txtboxStatGumption.Text = "50";
+            this._txtboxStatGumption.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateStatGumption);
             // 
             // _cmbboxHobby
             // 
@@ -112,6 +121,7 @@
             this._cmbboxHobby.Name = "_cmbboxHobby";
             this._cmbboxHobby.Size = new System.Drawing.Size(151, 28);
             this._cmbboxHobby.TabIndex = 1;
+            this._cmbboxHobby.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateHobby);
             // 
             // _cmbboxProfession
             // 
@@ -127,6 +137,7 @@
             this._cmbboxProfession.Name = "_cmbboxProfession";
             this._cmbboxProfession.Size = new System.Drawing.Size(151, 28);
             this._cmbboxProfession.TabIndex = 2;
+            this._cmbboxProfession.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateProfession);
             // 
             // _txtboxDescription
             // 
@@ -246,10 +257,16 @@
             this._btnCancel.UseVisualStyleBackColor = true;
             this._btnCancel.Click += new System.EventHandler(this.OnCancel);
             // 
+            // _errors
+            // 
+            this._errors.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this._errors.ContainerControl = this;
+            // 
             // CharacterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(582, 553);
             this.Controls.Add(this._btnCancel);
             this.Controls.Add(this._btnSave);
@@ -280,6 +297,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create New Character";
+            ((System.ComponentModel.ISupportInitialize)(this._errors)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -308,5 +326,6 @@
         private Label _lblBackstory;
         private Button _btnSave;
         private Button _btnCancel;
+        private ErrorProvider _errors;
     }
 }

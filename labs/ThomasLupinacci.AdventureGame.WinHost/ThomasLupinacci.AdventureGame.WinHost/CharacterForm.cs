@@ -85,5 +85,98 @@ namespace ThomasLupinacci.AdventureGame.WinHost
                 _txtboxDescription.Text = Character.Backstory;
             }
         }
+
+        private void OnValidateName ( object sender, CancelEventArgs e )
+        {
+            var control = sender as Control;
+            if (String.IsNullOrEmpty(control.Text))
+            {
+                _errors.SetError(_txtboxName, "Name is required");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
+        }
+
+        private void OnValidateHobby ( object sender, CancelEventArgs e )
+        {
+            var control = sender as Control;
+            if (String.IsNullOrEmpty(control.Text))
+            {
+                _errors.SetError(_cmbboxHobby, "Hobby is required");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
+        }
+
+        private void OnValidateProfession ( object sender, CancelEventArgs e )
+        {
+            var control = sender as Control;
+            if (String.IsNullOrEmpty(control.Text))
+            {
+                _errors.SetError(_cmbboxProfession, "Profession is required");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
+        }
+
+        private void OnValidateStatGrit ( object sender, CancelEventArgs e )
+        {
+            var control = sender as Control;
+            var value = ReadAsInt32(control, -1);
+            if (value < 1 || value > 100)
+            {
+                _errors.SetError(control, "Your Grit must be between 1 and 100.");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
+        }
+
+        private void OnValidateStatMuscle ( object sender, CancelEventArgs e )
+        {
+            var control = sender as Control;
+            var value = ReadAsInt32(control, -1);
+            if (value < 1 || value > 100)
+            {
+                _errors.SetError(control, "Your Muscle must be between 1 and 100.");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
+        }
+
+        private void OnValidateStatMysticallity ( object sender, CancelEventArgs e )
+        {
+            var control = sender as Control;
+            var value = ReadAsInt32(control, -1);
+            if (value < 1 || value > 100)
+            {
+                _errors.SetError(control, "Your Mysticallity must be between 1 and 100.");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
+        }
+
+        private void OnValidateStatMoxie ( object sender, CancelEventArgs e )
+        {
+            var control = sender as Control;
+            var value = ReadAsInt32(control, -1);
+            if (value < 1 || value > 100)
+            {
+                _errors.SetError(control, "Your Moxie must be between 1 and 100.");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
+        }
+
+        private void OnValidateStatGumption ( object sender, CancelEventArgs e )
+        {
+            var control = sender as Control;
+            var value = ReadAsInt32(control, -1);
+            if (value < 1 || value > 100)
+            {
+                _errors.SetError(control, "Your Gumption must be between 1 and 100.");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
+        }
     }
 }
