@@ -75,5 +75,22 @@ namespace ThomasLupinacci.AdventureGame.WinHost
             _character = dlg.Character;
             UpdateUI();
         }
+
+        private void OnCharacterDelete ( object sender, EventArgs e )
+        {
+            //Get selected character
+            var selectedCharacter = GetSelectedCharacter();
+            if (selectedCharacter == null)
+                return;
+
+            //Confirm deletion
+            if (MessageBox.Show(this, $"Are you sure you wanna delete {selectedCharacter.Name}?",
+                "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
+
+            //Delete
+            _character = null;
+            UpdateUI();
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace ThomasLupinacci.AdventureGame
+﻿using System;
+
+namespace ThomasLupinacci.AdventureGame
 {
     public class Character
     {
@@ -7,10 +9,10 @@
         /// </summary>
         public string Name
         {
-            get { return !String.IsNullOrEmpty(_name) ? _name : ""; }
+            get { return _name ?? ""; }
             set { _name = value; }
         }
-        private string _name;
+        private string _name = "";
 
         /// <summary>
         /// Gets and sets character's Hobby.
@@ -20,7 +22,7 @@
             get { return !String.IsNullOrEmpty(_hobby) ? _hobby : ""; }
             set { _hobby = value; }
         }
-        private string _hobby;
+        private string _hobby = "";
 
         /// <summary>
         /// Gets and sets character's Profession.
@@ -30,7 +32,7 @@
             get { return !String.IsNullOrEmpty(_profession) ? _profession : ""; }
             set { _profession = value; }
         }
-        private string _profession;
+        private string _profession = "";
 
         /// <summary>
         /// Gets and sets character's StatGrit.
@@ -65,7 +67,7 @@
             get { return !String.IsNullOrEmpty(_backstory) ? _backstory : ""; }
             set { _backstory = value; }
         }
-        private string _backstory;
+        private string _backstory = "";
 
         /// <summary>
         /// Determines if a character is valid or not.
