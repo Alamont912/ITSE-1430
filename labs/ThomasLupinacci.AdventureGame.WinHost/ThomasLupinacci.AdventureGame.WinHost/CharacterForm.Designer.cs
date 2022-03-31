@@ -103,11 +103,11 @@
             this._cmbboxHobby.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cmbboxHobby.FormattingEnabled = true;
             this._cmbboxHobby.Items.AddRange(new object[] {
-            "Cow Puncher",
-            "Beanslinger",
-            "Snakeoiler",
-            "Wanderer",
-            "Deprived"});
+            "Cow Punchin\'",
+            "Beanslingin\'",
+            "Snakeoilin\'",
+            "Wanderin\'",
+            "Deprivin\'"});
             this._cmbboxHobby.Location = new System.Drawing.Point(109, 96);
             this._cmbboxHobby.Name = "_cmbboxHobby";
             this._cmbboxHobby.Size = new System.Drawing.Size(151, 28);

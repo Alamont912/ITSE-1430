@@ -37,10 +37,17 @@ namespace ThomasLupinacci.AdventureGame.WinHost
 
                 //Save movie from CharacterForm
                 _character = dlg.Character;
-                //TODO: update UI
+                UpdateUI();
                 return;
 
             } while (true);
+        }
+
+        private void UpdateUI()
+        {
+            _lstboxCharacterList.Items.Clear();
+
+            _lstboxCharacterList.Items.Add(_character);
         }
 
         private Character _character;

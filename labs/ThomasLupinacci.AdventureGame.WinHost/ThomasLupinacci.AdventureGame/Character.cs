@@ -93,5 +93,9 @@
 
             return "";
         }
+        public override string ToString ()
+        {
+            return $"{_name} the {_hobby} {_profession}";
+        }
     }
 }
