@@ -1,3 +1,6 @@
+using System;
+using System.Windows.Forms;
+
 namespace ThomasLupinacci.AdventureGame.WinHost
 {
     internal static class Program
@@ -10,7 +13,6 @@ namespace ThomasLupinacci.AdventureGame.WinHost
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
             Application.Run(new MainForm());
         }
     }

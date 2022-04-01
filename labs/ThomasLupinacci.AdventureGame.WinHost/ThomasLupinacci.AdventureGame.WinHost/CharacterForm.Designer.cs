@@ -1,4 +1,6 @@
-﻿namespace ThomasLupinacci.AdventureGame.WinHost
+﻿using System.Windows.Forms;
+
+namespace ThomasLupinacci.AdventureGame.WinHost
 {
     partial class CharacterForm
     {
