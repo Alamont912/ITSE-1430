@@ -107,7 +107,7 @@ namespace MovieLib
 
             return "";  //returns an empty string if valid.
         }
-        public int Id { get; private set; } //auto-property with mixed-access.
+        public int Id { get; set; } //auto-property with mixed-access.
         //{
         //    get { return _id; }     //can optionally have an access mod, only one can have one,
         //    private set { _id = value; }    //must be more restrictive than property access mod
@@ -118,5 +118,50 @@ namespace MovieLib
         {
             return $"{Title} ({ReleaseYear})";
         }
+
+        public Movie Copy ()
+        {
+            //Object Initializer Syntax
+            //var item = new Movie();
+            //item.Id = Id;
+            //item.Title = Title;
+            //item.Description = Description;
+            //item.Duration = Duration;
+            //item.ReleaseYear = ReleaseYear;
+            //item.Genre = Genre;
+            //item.Rating = Rating;
+            //item.IsClassic = IsClassic;
+
+            //return item;
+
+            //Object Initializer Syntax only works with 'new'. It is one gigantic expression.
+            //Steps:
+            // 1. Remove semicolon at end of 'new', add curly braces
+            // 2. Replace semicolons with commas
+            // 3. Remove instance name
+            return new Movie()              //holy schmoly!
+            {
+                Id = Id,
+                Title = Title,
+                Description = Description,
+                Duration = Duration,
+                ReleaseYear = ReleaseYear,
+                Genre = Genre,
+                Rating = Rating,
+                IsClassic = IsClassic,
+            };
+        }
+
+        public void CopyFrom(Movie source)
+        {
+            Title = source.Title;
+            Description = source.Description;
+            Duration = source.Duration;
+            ReleaseYear = source.ReleaseYear;
+            Genre = source.Genre;
+            Rating = source.Rating;
+            IsClassic = source.IsClassic;
+        }
+
     }
 }

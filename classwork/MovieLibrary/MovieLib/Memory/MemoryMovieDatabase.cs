@@ -23,7 +23,9 @@ namespace MovieLib.Memory
             if (existing != null)
                 return "Movie must be unique";
 
-            _movies.Add(movie);
+            //Add
+            movie.Id = _id++;
+            _movies.Add(movie.Copy());
             return "";
         }
 
@@ -41,27 +43,81 @@ namespace MovieLib.Memory
         //virtual only applies to inheritance.
         //provides a default implementation, but
         //derived types can alter it.
-        public void Delete ( Movie movie )
+        public void Delete ( int id )
         {
-
+            //Find by movie.Id
+            foreach(var item in _movies)
+            {
+                if(item.Id == id)
+                {
+                    _movies.Remove(item);
+                    return;
+                }
+            }
         }
 
-        public void Update ( Movie movie )
+        public string Update ( int id, Movie movie )
         {
+            if (id <= 0)
+                return "Id must be >= 0";
 
+            if (movie == null)
+                return "Movie cannot be null";
+
+            var error = movie.Validate();
+            if (!String.IsNullOrEmpty(error))
+                return error;
+
+            var existing = FindByName(movie.Title);
+            if (existing != null && existing.Id != id)
+                return "Movie must be unique";
+
+            existing = FindById(id);
+            if (existing == null)
+                return "Movie does not exist";
+
+            //Update
+            existing.CopyFrom(movie);
+            return "";
         }
 
         public Movie[] GetAll()
         {
-            //TODO: broken
-            return _movies.ToArray();
+            //Need to clone movies so changes outside of database do not impact original
+            //return _movies.ToArray();
+            var items = new Movie[_movies.Count];
+            var index = 0;
+            foreach (var movie in _movies)      //makes a true copy array from a list of movies.
+                items[index++] = movie.Copy();
+
+            return items;
         }
 
-        public Movie Get ()
+        public Movie Get (int id)
         {
+            //var movie = FindById(id);
+
+            //return movie?.Copy();   //might not find it, so null conditional
+
+            return FindById(id)?.Copy();
+        }
+
+        private Movie FindById (int id)
+        {
+            foreach (var item in _movies)
+            {
+                if (item.Id == id)
+                {
+                    return item;
+                }
+            }
+
             return null;
         }
 
         private readonly List<Movie> _movies = new List<Movie>();
+
+        //Simple identifier system
+        private int _id = 1;
     }
 }

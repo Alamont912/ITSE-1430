@@ -12,6 +12,25 @@ namespace MovieLib.WinHost
             InitializeComponent();
         }
 
+        protected override void OnLoad ( EventArgs e )
+        {
+            base.OnLoad(e);
+
+            
+
+            if(_movies.GetAll().Length == 0)
+            {
+                if(MessageBox.Show(this, "Do you want to seed the database?", "Seed",
+                                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    //Seed database
+                    var seed = new SeedDatabase();
+                    seed.Seed(_movies);
+                    UpdateUI();
+                }
+            }
+        }
+
         protected override void OnFormClosing ( FormClosingEventArgs e )
         {
             //Confirm exit
@@ -48,6 +67,7 @@ namespace MovieLib.WinHost
                 var error = _movies.Add(dlg.Movie);
                 if (String.IsNullOrEmpty(error))
                 {
+                    dlg.Movie.Title = "Stur Wurs";
                     UpdateUI();
                     return;
                 }
@@ -60,8 +80,21 @@ namespace MovieLib.WinHost
         {
             _lstMovies.Items.Clear();
 
-            var movies = _movies.GetAll();
+            var movies = _movies.GetAll();  //returns an array of _movies
+
+            //BreakMovies(movies);
+
             _lstMovies.Items.AddRange(movies);
+        }
+
+        private void BreakMovies ( Movie[] movies )
+        {
+            if(movies.Length > 0)
+            {
+                var firstMovie = movies[0];
+
+                firstMovie.Title = "Stur Wurs";
+            }
         }
 
         private void listBox1_SelectedIndexChanged ( object sender, EventArgs e )
@@ -80,12 +113,21 @@ namespace MovieLib.WinHost
             var dlg = new MovieForm();
             dlg.Movie = movie;
 
-            if (dlg.ShowDialog(this) != DialogResult.OK)
-                return;
+            //Update movie
+            do
+            {
+                if (dlg.ShowDialog(this) != DialogResult.OK)
+                    return;
 
-            //Save movie
-            _movie = dlg.Movie;
-            UpdateUI();
+                var error = _movies.Update(movie.Id, dlg.Movie);
+                if (String.IsNullOrEmpty(error))
+                {
+                    UpdateUI();
+                    return;
+                }
+
+                MessageBox.Show(this, error, "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } while (true);
         }
 
         private void OnMovieDelete ( object sender, EventArgs e )
@@ -101,7 +143,7 @@ namespace MovieLib.WinHost
                 return;
 
             //Delete
-            _movie = null;
+            _movies.Delete(movie.Id);
             UpdateUI();
         }
 
