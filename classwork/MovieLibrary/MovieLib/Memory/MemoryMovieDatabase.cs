@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace MovieLib.Memory
 {
-    public class MemoryMovieDatabase
+    public class MemoryMovieDatabase : IMovieDatabase
     {
+        //not visible in interface
+        public void Foo()
+        {
+
+        }
+
         public string Add ( Movie movie )
         {
             //TODO: Validate
@@ -15,9 +21,11 @@ namespace MovieLib.Memory
             if (movie == null)
                 return "Movie cannot be null";
 
-            var error = movie.Validate();
-            if (!String.IsNullOrEmpty(error))
-                return "Movie is invalid";
+            if (!new ObjectValidator().TryValidateObject(movie, out var errors))
+                return "Movie is invalid";  //fix validation message
+            //var error = movie.Validate();
+            //if (!String.IsNullOrEmpty(error))
+            //    return "Movie is invalid";
 
             var existing = FindByName(movie.Title);
             if (existing != null)
@@ -46,9 +54,9 @@ namespace MovieLib.Memory
         public void Delete ( int id )
         {
             //Find by movie.Id
-            foreach(var item in _movies)
+            foreach (var item in _movies)
             {
-                if(item.Id == id)
+                if (item.Id == id)
                 {
                     _movies.Remove(item);
                     return;
@@ -64,9 +72,11 @@ namespace MovieLib.Memory
             if (movie == null)
                 return "Movie cannot be null";
 
-            var error = movie.Validate();
-            if (!String.IsNullOrEmpty(error))
-                return error;
+            if (!new ObjectValidator().TryValidateObject(movie, out var errors))
+                return "Movie is invalid";  //fix validation message
+            //var error = movie.Validate();
+            //if (!String.IsNullOrEmpty(error))
+            //    return error;
 
             var existing = FindByName(movie.Title);
             if (existing != null && existing.Id != id)
@@ -81,19 +91,32 @@ namespace MovieLib.Memory
             return "";
         }
 
-        public Movie[] GetAll()
+        //Iterators - implementation of IEnumerable<T>
+
+
+        /// <summary>
+        /// Gets all of the movies as an array.
+        /// </summary>
+        /// <returns>The movies in the database.</returns>
+        public IEnumerable<Movie> GetAll ()  //Interfaces (contracts) start with "I"
         {
             //Need to clone movies so changes outside of database do not impact original
             //return _movies.ToArray();
-            var items = new Movie[_movies.Count];
-            var index = 0;
             foreach (var movie in _movies)      //makes a true copy array from a list of movies.
-                items[index++] = movie.Copy();
-
-            return items;
+            {
+                //System.Diagnostics.Debug.WriteLine($"Returning {movie.Title}");
+                //items[index++] = movie.Copy();
+                yield return movie.Copy();
+            };
+            //return items;
         }
 
-        public Movie Get (int id)
+        /// <summary>
+        /// Gets a movie.
+        /// </summary>
+        /// <param name="id">The ID of the movie to get.</param>
+        /// <returns>The movie, if found.</returns>
+        public Movie Get ( int id )
         {
             //var movie = FindById(id);
 
@@ -102,7 +125,7 @@ namespace MovieLib.Memory
             return FindById(id)?.Copy();
         }
 
-        private Movie FindById (int id)
+        private Movie FindById ( int id )
         {
             foreach (var item in _movies)
             {
