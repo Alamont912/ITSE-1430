@@ -4,6 +4,23 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <PackageId />
+    <Version>1.0.0</Version>
+    <Authors>Thomas Lupinacci</Authors>
+    <Company>TCCD</Company>
+    <Product>Wild West Character Creator</Product>
+    <Copyright>2022</Copyright>
+    <Description>Thank you for playing our game!
+
+With this tool, you can easily and quickly create a
+datasheet of a new Wild West character.
+
+This was originally for my ITSE-1430
+Introduction to C# course, Lab #3 from TCCD.
+
+Yeehaw!
+
+-Tommy</Description>
   </PropertyGroup>
 
   <ItemGroup>

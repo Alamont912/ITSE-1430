@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Written by Thomas J. Lupinacci III for TCCD ITSE-1430 on 3/31/2022
+ * Lab #3
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
