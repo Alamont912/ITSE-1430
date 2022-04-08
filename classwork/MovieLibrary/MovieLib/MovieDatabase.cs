@@ -6,51 +6,106 @@ using System.Threading.Tasks;
 
 namespace MovieLib
 {
-    public class MovieDatabase
+    public abstract class MovieDatabase : IMovieDatabase
     {
-        public MovieDatabase() : this("My Movies")  //constructor-chaining (call this but the version with the parameter)
+        public string Add ( Movie movie )
         {
-            //Do minimal initialization of instance (if any), nothing complicated!!
-            //Don't initialize fields in here, that's what field initializers are for.
-            //If the field depends on other's order or data after initialization, put it in here.
+            //TODO: Validate
+
+            if (movie == null)
+                return "Movie cannot be null";
+
+            if (!ObjectValidator.TryValidateObject(movie, out var errors))
+                return "Movie is invalid";  //fix validation message
+            //var error = movie.Validate();
+            //if (!String.IsNullOrEmpty(error))
+            //    return "Movie is invalid";
+
+            var existing = FindByName(movie.Title);
+            if (existing != null)
+                return "Movie must be unique";
+
+            //Add
+            var newMovie = AddCore(movie);
+            movie.Id = newMovie.Id;
+            return "";
         }
-        public MovieDatabase(string name) //: this()  //constructor-chaining (call this but with no params, aka default constructor)
+        //virtual - you may implement/override
+        protected abstract Movie AddCore ( Movie movie );   //abstract - derived types MUST implement
+                                                            //abstracts cannot have a base definition
+        protected abstract Movie FindByName ( string name );
+
+        //virtual only applies to inheritance.
+        //provides a default implementation, but
+        //derived types can alter it.
+        public string Delete ( int id )
         {
-            Name = name;
-        }
-        //private string _name;
+            if (id <= 0)
+                return "ID must be > 0";
 
-        public string Name { get; set; }
-
-        public virtual void Add ( Movie movie )
-        {
-
-        }   //virtual only applies to inheritance.
-                                                    //provides a default implementation, but
-                                                    //derived types can alter it.
-        public void Delete ( Movie movie )
-        {
-
+            DeleteCore(id);
+            return "";
         }
 
-        public void Update (Movie movie)
-        {
+        protected abstract void DeleteCore ( int id );
 
+        public string Update ( int id, Movie movie )
+        {
+            if (id <= 0)
+                return "Id must be >= 0";
+
+            if (movie == null)
+                return "Movie cannot be null";
+
+            if (!ObjectValidator.TryValidateObject(movie, out var errors))
+                return "Movie is invalid";  //fix validation message
+            //var error = movie.Validate();
+            //if (!String.IsNullOrEmpty(error))
+            //    return error;
+
+            var existing = FindByName(movie.Title);
+            if (existing != null && existing.Id != id)
+                return "Movie must be unique";
+
+            existing = GetCore(id);
+            if (existing == null)
+                return "Movie does not exist";
+
+            //Update
+            UpdateCore(id, movie);
+            return "";
         }
 
-        public Movie Find(string name)
+        protected abstract void UpdateCore ( int id, Movie movie );
+
+        //Iterators - implementation of IEnumerable<T>
+
+
+        /// <summary>
+        /// Gets all of the movies as an array.
+        /// </summary>
+        /// <returns>The movies in the database.</returns>
+        public IEnumerable<Movie> GetAll ()  //Interfaces (contracts) start with "I"
         {
-            return null;
+            //TODO: handle null
+            return GetAllCore();
         }
 
-        public Movie Get ()
+        protected abstract IEnumerable<Movie> GetAllCore ();
+
+        /// <summary>
+        /// Gets a movie.
+        /// </summary>
+        /// <param name="id">The ID of the movie to get.</param>
+        /// <returns>The movie, if found.</returns>
+        public Movie Get ( int id )
         {
-            return null;
+            if (id <= 0)
+                return null;
+
+            return GetCore(id);
         }
 
-        protected void Foo () { }   //protected only needed for inheritance.
-                                    //means accessable to this type and derived types
-                                    //but private to everything else.
+        protected abstract Movie GetCore ( int id );
     }
-
 }

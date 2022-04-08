@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -13,20 +14,24 @@ namespace MovieLib.WinHost
             InitializeComponent();
         }
 
+        //Extension methods
+        // Extends a type with a new method
+        // Works with any type
+        // 
         protected override void OnLoad ( EventArgs e )
         {
             base.OnLoad(e);
 
 
-
-            if(!_movies.GetAll().Any())
+            IEnumerable<Movie> items = _movies.GetAll();
+            if(!items.Any())
             {
                 if(MessageBox.Show(this, "Do you want to seed the database?", "Seed",
                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     //Seed database
-                    var seed = new SeedDatabase();
-                    seed.Seed(_movies);
+                    //SeedDatabase.Seed(_movies);
+                    _movies.Seed();
                     UpdateUI();
                 }
             }
