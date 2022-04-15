@@ -70,15 +70,18 @@ namespace MovieLib.WinHost
                     return;
 
                 //Save movie
-                var error = _movies.Add(dlg.Movie);
-                if (String.IsNullOrEmpty(error))
-                {
-                    dlg.Movie.Title = "Stur Wurs";
-                    UpdateUI();
-                    return;
-                }
+                //var error = _movies.Add(dlg.Movie);
+                //if (String.IsNullOrEmpty(error))
+                //{
+                //    dlg.Movie.Title = "Stur Wurs";
+                //    UpdateUI();
+                //    return;
+                //}
+                _movies.Add(dlg.Movie);
+                UpdateUI();
+                return;
 
-                MessageBox.Show(this, error, "Add failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show(this, error, "Add failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             } while (true);
         }
 
@@ -86,12 +89,21 @@ namespace MovieLib.WinHost
         {
             _lstMovies.Items.Clear();
 
-            var movies = _movies.GetAll();  //returns an array of _movies
+            //Approach 1
+            //foreach (var movie in movies)
+            //    _lstMovies.Items.Add(movie);
 
-            //BreakMovies(movies);
+            //Approach 2
+            //var movies = _movies.GetAll()
+            //                    .OrderBy(x => x.Title)
+            //                    .ThenBy(x => x.ReleaseYear);
 
-            foreach (var movie in movies)
-                _lstMovies.Items.Add(movie);
+            //Approach 3
+            var movies = from m in _movies.GetAll()
+                         orderby m.Title, m.ReleaseYear
+                         select m;
+
+            _lstMovies.Items.AddRange(movies.ToArray());
         }
 
         //private void BreakMovies ( IOrderedEnumerable<Movie> movies )
@@ -126,14 +138,11 @@ namespace MovieLib.WinHost
                 if (dlg.ShowDialog(this) != DialogResult.OK)
                     return;
 
-                var error = _movies.Update(movie.Id, dlg.Movie);
-                if (String.IsNullOrEmpty(error))
-                {
-                    UpdateUI();
-                    return;
-                }
+                _movies.Update(movie.Id, dlg.Movie);
+                UpdateUI();
+                return;
 
-                MessageBox.Show(this, error, "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show(this, error, "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             } while (true);
         }
 

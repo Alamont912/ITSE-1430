@@ -24,9 +24,12 @@ namespace MovieLib
         {
             //get { return !String.IsNullOrEmpty(_title) ? _title : ""; }     //getter
             //get { return (_title != null) ? _title : " "; }
-            get { return _title ?? ""; }    //null coalescing 
+            //get { return _title ?? ""; }    //null coalescing 
+            get => _title ?? "";
+
             //set { _title = (value != null) ? value.Trim() : null; }     //setter
-            set { _title = value?.Trim(); } //null conditional
+            //set { _title = value?.Trim(); } //null conditional
+            set => _title = value?.Trim();
         }
         private string _title;
 
@@ -41,16 +44,16 @@ namespace MovieLib
         /// <summary>Gets or sets rating of movie.</summary>
         public string Rating
         {
-            get { return !String.IsNullOrEmpty(_rating) ? _rating : ""; }
-            set { _rating = value; }
+            get => !String.IsNullOrEmpty(_rating) ? _rating : "";
+            set => _rating = value;
         }
         private string _rating;           //time for prawn!
 
         /// <summary>Gets or sets genre of movie.</summary>
         public string Genre
         {
-            get { return !String.IsNullOrEmpty(_genre) ? _genre : ""; }
-            set { _genre = value; }
+            get => !String.IsNullOrEmpty(_genre) ? _genre : "";
+            set => _genre = value;
         }
         private string _genre;
 
@@ -67,11 +70,13 @@ namespace MovieLib
         private string _description;
 
         //Calculated Property := BW <= 1939         constantly updated and calculated, not stored
-        public bool IsBlackAndWhite
-        {
-            get { return ReleaseYear < 1939; }  //getter is optional.
-            // the setter is optional. You must have at least one of these.
-        }
+        public bool IsBlackAndWhite => ReleaseYear <= 1939;
+
+        //public bool IsBlackAndWhite
+        //{
+        //    get => ReleaseYear <= 1939;  //getter is optional.
+        //    // the setter is optional. You must have at least one of these.
+        //}
 
         //private bool _isBlackAndWhite;
 
@@ -94,32 +99,14 @@ namespace MovieLib
         //}
         //private int _id;
 
-        public override string ToString ()
-        {
-            return $"{Title} ({ReleaseYear})";
-        }
+        //Expression body
+        public override string ToString () => $"{Title} ({ReleaseYear})";
+        
+        //{
+        //    return $"{Title} ({ReleaseYear})";
+        //}
 
-        public Movie Copy ()
-        {
-            //Object Initializer Syntax
-            //var item = new Movie();
-            //item.Id = Id;
-            //item.Title = Title;
-            //item.Description = Description;
-            //item.Duration = Duration;
-            //item.ReleaseYear = ReleaseYear;
-            //item.Genre = Genre;
-            //item.Rating = Rating;
-            //item.IsClassic = IsClassic;
-
-            //return item;
-
-            //Object Initializer Syntax only works with 'new'. It is one gigantic expression.
-            //Steps:
-            // 1. Remove semicolon at end of 'new', add curly braces
-            // 2. Replace semicolons with commas
-            // 3. Remove instance name
-            return new Movie()              //holy schmoly!
+        public Movie Copy () => new Movie ()              //holy schmoly!
             {
                 Id = Id,
                 Title = Title,
@@ -130,9 +117,23 @@ namespace MovieLib
                 Rating = Rating,
                 IsClassic = IsClassic,
             };
-        }
 
-        public void CopyFrom(Movie source)
+
+    //{
+    //    return new Movie()              //holy schmoly!
+    //    {
+    //        Id = Id,
+    //        Title = Title,
+    //        Description = Description,
+    //        Duration = Duration,
+    //        ReleaseYear = ReleaseYear,
+    //        Genre = Genre,
+    //        Rating = Rating,
+    //        IsClassic = IsClassic,
+    //    };
+    //}
+
+    public void CopyFrom(Movie source)
         {
             Title = source.Title;
             Description = source.Description;

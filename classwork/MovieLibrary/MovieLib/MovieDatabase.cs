@@ -8,27 +8,37 @@ namespace MovieLib
 {
     public abstract class MovieDatabase : IMovieDatabase
     {
-        public string Add ( Movie movie )
+        public Movie Add ( Movie movie )
         {
+            //Raise an error using 'throw'. throw-statement ::= throw E(exception)
             //TODO: Validate
 
             if (movie == null)
-                return "Movie cannot be null";
+                throw new ArgumentNullException(nameof(movie));
+            movie = movie ?? throw new ArgumentNullException(nameof(movie));
+                //return "Movie cannot be null";
 
-            if (!ObjectValidator.TryValidateObject(movie, out var errors))
-                return "Movie is invalid";  //fix validation message
+            var error = new InvalidOperationException();
+
+            //Throw ValidationException if anything wrong 
+            ObjectValidator.ValidateObject(movie);
+            //if (!ObjectValidator.TryValidateObject(movie, out var errors))
+            //    return "Movie is invalid";  //fix validation message
             //var error = movie.Validate();
             //if (!String.IsNullOrEmpty(error))
             //    return "Movie is invalid";
 
             var existing = FindByName(movie.Title);
             if (existing != null)
-                return "Movie must be unique";
+                //return "Movie must be unique";
+                //throw new InvalidOperationException("Movie must be unique");
+                throw new ArgumentException("Movie must be unique", nameof(movie));
 
             //Add
             var newMovie = AddCore(movie);
-            movie.Id = newMovie.Id;
-            return "";
+            //movie.Id = newMovie.Id;
+            //return "";
+            return newMovie;
         }
         //virtual - you may implement/override
         protected abstract Movie AddCore ( Movie movie );   //abstract - derived types MUST implement
@@ -38,42 +48,48 @@ namespace MovieLib
         //virtual only applies to inheritance.
         //provides a default implementation, but
         //derived types can alter it.
-        public string Delete ( int id )
+        public void Delete ( int id )
         {
             if (id <= 0)
-                return "ID must be > 0";
+                throw new ArgumentOutOfRangeException(nameof(id), "ID must be greater than 0");
+                //return "ID must be > 0";
 
             DeleteCore(id);
-            return "";
         }
 
         protected abstract void DeleteCore ( int id );
 
-        public string Update ( int id, Movie movie )
+        public void Update ( int id, Movie movie )
         {
+            //if (id <= 0)
+            //    return "Id must be >= 0";
             if (id <= 0)
-                return "Id must be >= 0";
+                throw new ArgumentOutOfRangeException(nameof(id), "ID must be greater than 0");
 
             if (movie == null)
-                return "Movie cannot be null";
+                //return "Movie cannot be null";
+                throw new ArgumentNullException(nameof(movie));
 
-            if (!ObjectValidator.TryValidateObject(movie, out var errors))
-                return "Movie is invalid";  //fix validation message
+            ObjectValidator.ValidateObject(movie);
+            //if (!ObjectValidator.TryValidateObject(movie, out var errors))
+            //    return "Movie is invalid";  //fix validation message
             //var error = movie.Validate();
             //if (!String.IsNullOrEmpty(error))
             //    return error;
 
             var existing = FindByName(movie.Title);
             if (existing != null && existing.Id != id)
-                return "Movie must be unique";
+                //return "Movie must be unique";
+                throw new ArgumentException("Movie must be unique", nameof(movie));
 
             existing = GetCore(id);
             if (existing == null)
-                return "Movie does not exist";
+                //return "Movie does not exist";
+                throw new ArgumentException("Movie does not exist", nameof(movie));
 
             //Update
             UpdateCore(id, movie);
-            return "";
+            //return "";
         }
 
         protected abstract void UpdateCore ( int id, Movie movie );
@@ -85,11 +101,7 @@ namespace MovieLib
         /// Gets all of the movies as an array.
         /// </summary>
         /// <returns>The movies in the database.</returns>
-        public IEnumerable<Movie> GetAll ()  //Interfaces (contracts) start with "I"
-        {
-            //TODO: handle null
-            return GetAllCore();
-        }
+        public IEnumerable<Movie> GetAll () => GetAllCore(); //Interfaces (contracts) start with "I"
 
         protected abstract IEnumerable<Movie> GetAllCore ();
 
@@ -100,8 +112,10 @@ namespace MovieLib
         /// <returns>The movie, if found.</returns>
         public Movie Get ( int id )
         {
+            //if (id <= 0)
+            //    return null;
             if (id <= 0)
-                return null;
+                throw new ArgumentOutOfRangeException(nameof(id), "ID must be greater than 0");
 
             return GetCore(id);
         }
