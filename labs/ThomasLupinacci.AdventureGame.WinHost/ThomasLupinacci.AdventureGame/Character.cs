@@ -75,6 +75,16 @@ namespace ThomasLupinacci.AdventureGame
         private string _backstory = "";
 
         /// <summary>
+        /// Unique Id associated with the character. Is managed by an implemented roster, is '0' otherwise.
+        /// </summary>
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+        private int _id = 0;
+
+        /// <summary>
         /// Determines if a character is valid or not.
         /// </summary>
         /// <returns>Returns true if valid, false otherwise.</returns>
@@ -103,6 +113,22 @@ namespace ThomasLupinacci.AdventureGame
         public override string ToString ()
         {
             return $"{_name} the {_hobby} {_profession}";
+        }
+
+        public Character Copy ()
+        {
+            return new Character() {
+                Name = Name,
+                Hobby = Hobby,
+                Profession = Profession,
+                StatGrit = StatGrit,
+                StatMuscle = StatMuscle,
+                StatMysticallity = StatMysticallity,
+                StatMoxie = StatMoxie,
+                StatGumption = StatGumption,
+                Backstory = Backstory,
+                Id = Id
+            };
         }
     }
 }

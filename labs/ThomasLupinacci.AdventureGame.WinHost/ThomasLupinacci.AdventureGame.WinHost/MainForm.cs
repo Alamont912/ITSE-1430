@@ -15,6 +15,8 @@ namespace ThomasLupinacci.AdventureGame.WinHost
             InitializeComponent();
         }
 
+        ICharacterRoster _roster = new Memory.MemoryCharacterRoster();
+
         private int ReadAsInt32 ( Control control, int defaultValue )
         {
             if (Int32.TryParse(control.Text, out var result))
