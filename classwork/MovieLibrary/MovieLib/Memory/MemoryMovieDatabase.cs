@@ -11,6 +11,9 @@ namespace MovieLib.Memory
         protected override Movie AddCore ( Movie movie )
         {
             //Add
+            if (String.Equals(movie.Title, "MemoryError", StringComparison.OrdinalIgnoreCase))
+                throw new InvalidOperationException("Bad Memory");
+
             movie.Id = _id++;
             _movies.Add(movie.Copy());
             return movie;

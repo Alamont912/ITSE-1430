@@ -31,14 +31,25 @@ namespace MovieLib
             var existing = FindByName(movie.Title);
             if (existing != null)
                 //return "Movie must be unique";
-                //throw new InvalidOperationException("Movie must be unique");
-                throw new ArgumentException("Movie must be unique", nameof(movie));
+                throw new InvalidOperationException("Movie must be unique");
+            //throw new ArgumentException("Movie must be unique", nameof(movie));
 
             //Add
-            var newMovie = AddCore(movie);
+            try
+            {
+                var newMovie = AddCore(movie);
+                return newMovie;
+            } catch (InvalidOperationException ex){
+                //pass through
+                //NEVER DO THIS -> throw ex;
+                throw;
+            } catch( Exception ex)
+            {
+                //Wrap in a generic exception
+                throw new Exception("Error adding movie", ex);
+            }
             //movie.Id = newMovie.Id;
             //return "";
-            return newMovie;
         }
         //virtual - you may implement/override
         protected abstract Movie AddCore ( Movie movie );   //abstract - derived types MUST implement
