@@ -11,6 +11,6 @@ namespace ThomasLupinacci.AdventureGame
     /// </summary>
     public interface ICharacterRoster
     {
-        Character Add (Character character, out List<string> errors);
+        Character Add (Character character);
     }
 }

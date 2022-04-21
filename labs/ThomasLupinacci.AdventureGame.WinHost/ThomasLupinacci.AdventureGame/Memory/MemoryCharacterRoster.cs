@@ -10,7 +10,7 @@ namespace ThomasLupinacci.AdventureGame.Memory
     {
         private readonly List<Character> _characters = new List<Character>();
 
-        public Character Add( Character character, out List<string> errors )
+        public Character Add( Character character)
         {
             if(ValidateCharacter(character) != null)
             {

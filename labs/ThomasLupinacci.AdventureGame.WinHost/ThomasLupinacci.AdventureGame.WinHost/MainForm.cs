@@ -45,8 +45,8 @@ namespace ThomasLupinacci.AdventureGame.WinHost
                 if (dlg.ShowDialog(this) != DialogResult.OK)
                     return;
 
-                //Save movie from CharacterForm
-                _character = dlg.Character;
+                //Save character from CharacterForm to roster
+                _roster.Add(dlg.Character); //am I doing this right?
                 UpdateUI();
                 return;
 
