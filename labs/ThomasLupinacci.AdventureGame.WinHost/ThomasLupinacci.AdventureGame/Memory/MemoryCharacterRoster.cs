@@ -26,7 +26,7 @@ namespace ThomasLupinacci.AdventureGame.Memory
             return null;
         }
 
-        public Character ValidateCharacter( Character character )
+        public Character ValidateCharacter( Character character ) //replace using IValidatableObject
         {
             if (character == null)
                 return null;

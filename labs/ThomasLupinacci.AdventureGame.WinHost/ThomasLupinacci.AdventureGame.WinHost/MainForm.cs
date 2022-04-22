@@ -46,7 +46,7 @@ namespace ThomasLupinacci.AdventureGame.WinHost
                     return;
 
                 //Save character from CharacterForm to roster
-                _roster.Add(dlg.Character); //am I doing this right?
+                _roster.Add(dlg.Character);
                 UpdateUI();
                 return;
 
