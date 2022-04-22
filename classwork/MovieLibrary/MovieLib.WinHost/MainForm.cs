@@ -33,9 +33,9 @@ namespace MovieLib.WinHost
                     //Seed database
                     //SeedDatabase.Seed(_movies);
                     _movies.Seed();
-                    UpdateUI();
                 }
             }
+            UpdateUI();
         }
 
         protected override void OnFormClosing ( FormClosingEventArgs e )
@@ -198,7 +198,7 @@ namespace MovieLib.WinHost
         }
 
         private Movie _movie;
-        private readonly IMovieDatabase _movies = new MemoryMovieDatabase();
+        private readonly IMovieDatabase _movies = new IO.FileMovieDatabase("movies.txt");
 
     }
 }
