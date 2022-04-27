@@ -198,7 +198,7 @@ namespace MovieLib.WinHost
         }
 
         private Movie _movie;
-        private readonly IMovieDatabase _movies = new IO.FileMovieDatabase("movies.txt");
+        private readonly IMovieDatabase _movies = new Sql.SqlMovieDatabase(Program.GetConnectionString("AppDatabase"));
 
     }
 }
