@@ -130,5 +130,18 @@ namespace ThomasLupinacci.AdventureGame
                 Id = Id
             };
         }
+
+        public void CopyFrom(Character source)
+        {
+            Name = source.Name;
+            Hobby = source.Hobby;
+            Profession = source.Profession;
+            StatGrit = source.StatGrit;
+            StatMuscle = source.StatMuscle;
+            StatMysticallity = source.StatMysticallity;
+            StatMoxie = source.StatMoxie;
+            StatGumption = source.StatGumption;
+            Backstory = source.Backstory;
+        }
     }
 }
