@@ -10,7 +10,7 @@ namespace MovieLib
     /// <summary>
     /// Represents a movie.
     /// </summary>
-    public class Movie : IValidatableObject
+    public class Movie //: IValidatableObject
     {
         //Fields - Where the data is stored - looks just like a local variable by design!
         //automatically initializes to 0 or to an entered value. Do not make public.
@@ -20,6 +20,11 @@ namespace MovieLib
         //Use Properties to expose data.
 
         /// <summary>Gets or sets the title of the movie instance.</summary>
+        /// 
+        //[RequiredAttribute()]
+        //[RequiredAttribute]
+        //[Required]
+        [Required(AllowEmptyStrings = false)]
         public string Title
         {
             //get { return !String.IsNullOrEmpty(_title) ? _title : ""; }     //getter
@@ -34,14 +39,20 @@ namespace MovieLib
         private string _title;
 
         /// <summary>Gets or sets duration in minutes.</summary>
+        /// 
+        [RangeAttribute(0, Int32.MaxValue)]
         public int Duration { get; set; }   //auto-makes. field not needed.
                                             //private int _duration;               //Hungarian notation identifies
 
         /// <summary>Gets or sets release year of movie..</summary>
+        /// 
+        [RangeAttribute(MinimumReleaseYear, 2100)]
         public int ReleaseYear { get; set; } = 1900;    //auto-property field-initializer!
         //private int _releaseYear = 1900;     //fields vs. variables
 
         /// <summary>Gets or sets rating of movie.</summary>
+        /// 
+        [Required(AllowEmptyStrings = false)]
         public string Rating
         {
             get => !String.IsNullOrEmpty(_rating) ? _rating : "";
@@ -50,6 +61,8 @@ namespace MovieLib
         private string _rating;           //time for prawn!
 
         /// <summary>Gets or sets genre of movie.</summary>
+        /// 
+        [Required(AllowEmptyStrings = false)]
         public string Genre
         {
             get => !String.IsNullOrEmpty(_genre) ? _genre : "";
@@ -70,6 +83,7 @@ namespace MovieLib
         private string _description;
 
         //Calculated Property := BW <= 1939         constantly updated and calculated, not stored
+        [Obsolete("DO NOT")]
         public bool IsBlackAndWhite => ReleaseYear <= 1939;
 
         //public bool IsBlackAndWhite
@@ -144,25 +158,29 @@ namespace MovieLib
             IsClassic = source.IsClassic;
         }
 
-        public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext )
+        //public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext )
+        //{
+        //    //if (String.IsNullOrEmpty(_title))
+        //    //    yield return new ValidationResult("Title is required.", new[] {nameof(Title) });
+
+        //    //if (Duration < 0)
+        //    //    yield return new ValidationResult("Duration must be at least 0.", new[] { nameof(Duration) });
+
+        //    //if (ReleaseYear < MinimumReleaseYear)
+        //    //    yield return new ValidationResult($"Release year must be at least {MinimumReleaseYear}.",
+        //    //                                        new[] { nameof(ReleaseYear) });
+
+        //    //if (String.IsNullOrEmpty(Rating))
+        //    //    yield return new ValidationResult("Rating is required.", new[] {nameof(Rating)});
+
+        //    //if (String.Equals(_title, "Error", StringComparison.OrdinalIgnoreCase))
+        //    //    yield return new ValidationResult("Title cannot be 'error'", new[] { nameof(Title) });
+        //
+        //}
+
+        private void StayOut ()
         {
-            if (String.IsNullOrEmpty(_title))
-                yield return new ValidationResult("Title is required.", new[] {nameof(Title) });
-
-            if (Duration < 0)
-                yield return new ValidationResult("Duration must be at least 0.", new[] { nameof(Duration) });
-
-            if (ReleaseYear < MinimumReleaseYear)
-                yield return new ValidationResult($"Release year must be at least {MinimumReleaseYear}.",
-                                                    new[] { nameof(ReleaseYear) });
-
-            if (String.IsNullOrEmpty(Rating))
-                yield return new ValidationResult("Rating is required.", new[] {nameof(Rating)});
-
-            if (String.Equals(_title, "Error", StringComparison.OrdinalIgnoreCase))
-                yield return new ValidationResult("Title cannot be 'error'", new[] { nameof(Title) });
-
-
+            var foo = IsBlackAndWhite;
         }
     }
 }
