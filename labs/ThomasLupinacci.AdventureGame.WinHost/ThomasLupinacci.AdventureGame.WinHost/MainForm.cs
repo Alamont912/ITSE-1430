@@ -55,10 +55,16 @@ namespace ThomasLupinacci.AdventureGame.WinHost
 
         private void UpdateUI()
         {
-            _lstboxCharacterList.Items.Clear();
+            //_lstboxCharacterList.Items.Clear();
 
-            if(_character != null)
-                _lstboxCharacterList.Items.Add(_character);
+            if(_roster != null)
+            {
+                var binding = new BindingSource();
+                binding.DataSource = _roster.GetAll();
+
+                _lstboxCharacterList.DataSource = binding;
+                _lstboxCharacterList.DisplayMember = nameof(Character.Name);
+            }
         }
 
         private Character GetSelectedCharacter()
@@ -83,7 +89,7 @@ namespace ThomasLupinacci.AdventureGame.WinHost
                 return;
 
             //Save
-            _character = dlg.Character;
+            _roster.Update(selectedCharacter.Id, dlg.Character);
             UpdateUI();
         }
 

@@ -26,6 +26,37 @@ namespace ThomasLupinacci.AdventureGame.Memory
             return null;
         }
 
+        public IEnumerable<Character> GetAll ()
+        {
+            foreach (var character in _characters)
+            {
+                yield return character.Copy();
+            }
+        }
+
+        public string Update(int ID, Character character)
+        {
+            if (ID <= 0)
+                return "ID must be greater than 0.";
+
+            if (character == null)
+                return "Character does not exist.";
+
+            if (!String.IsNullOrEmpty(character.Validate()))
+                return character.Validate(); ;
+
+            if (FindByID(ID) == null)
+                return "Character does not exist in roster.";
+
+            if (FindByName(character.Name) != null)                 //if name exists in roster
+                if (FindByName(character.Name).Id != ID)            //but ID's don't match
+                    return "Another movie already has this Title."; //then another movie has this name already
+                                                                    //else, continue
+
+            FindByID(ID).CopyFrom(character);
+            return "Update Successful!";
+        }
+
         public Character ValidateCharacter( Character character ) //replace using IValidatableObject
         {
             if (character == null)
@@ -50,6 +81,14 @@ namespace ThomasLupinacci.AdventureGame.Memory
                 if(String.Equals(character.Name, name, StringComparison.CurrentCultureIgnoreCase))
                     return character;
 
+            return null;
+        }
+
+        public Character FindByID(int ID)
+        {
+            foreach(var character in _characters)
+                if(ID == character.Id)
+                    return character;
             return null;
         }
 
