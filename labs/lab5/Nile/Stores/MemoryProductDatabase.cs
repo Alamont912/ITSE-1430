@@ -15,6 +15,10 @@ namespace Nile.Stores
         protected override Product AddCore ( Product product )
         {
             var newProduct = CopyProduct(product);
+
+            if (FindProductByName(newProduct.Name) != null)
+                throw new InvalidOperationException("Product must be unique.");
+
             _products.Add(newProduct);
 
             if (newProduct.Id <= 0)
@@ -57,6 +61,9 @@ namespace Nile.Stores
         protected override Product UpdateCore ( Product existing, Product product )
         {
             //Replace 
+            if (existing.Id != product.Id && FindProductByName(product.Name) != null)    //if same product and name already exists elsewhere
+                throw new ArgumentException("Product must be unique.", nameof(product));
+
             existing = FindProduct(product.Id);
             _products.Remove(existing);
             
@@ -84,6 +91,18 @@ namespace Nile.Stores
             foreach (var product in _products)
             {
                 if (product.Id == id)
+                    return product;
+            };
+
+            return null;
+        }
+
+        //Find a product by Name
+        private Product FindProductByName ( string name )
+        {
+            foreach (var product in _products)
+            {
+                if (product.Name == name)
                     return product;
             };
 

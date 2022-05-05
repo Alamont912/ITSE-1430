@@ -41,8 +41,14 @@ namespace Nile.Windows
 
             //TODO: Handle errors
             //Save product
-            _database.Add(child.Product);
-            UpdateList();
+            try
+            {
+                _database.Add(child.Product);
+                UpdateList();
+            }catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Add Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void OnProductEdit( object sender, EventArgs e )
@@ -107,8 +113,14 @@ namespace Nile.Windows
 
             //TODO: Handle errors
             //Delete product
-            _database.Remove(product.Id);
-            UpdateList();
+            try
+            {
+                _database.Remove(product.Id);
+                UpdateList();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Delete failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void EditProduct ( Product product )
@@ -120,8 +132,14 @@ namespace Nile.Windows
 
             //TODO: Handle errors
             //Save product
-            _database.Update(child.Product);
-            UpdateList();
+            try
+            {
+                _database.Update(child.Product);
+                UpdateList();
+            } catch(Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private Product GetSelectedProduct ()
@@ -136,7 +154,13 @@ namespace Nile.Windows
         {
             //TODO: Handle errors
 
-            _bsProducts.DataSource = _database.GetAll();
+            try
+            {
+                _bsProducts.DataSource = _database.GetAll();
+            }catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "List Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private string GetConnectionString ( string name )
