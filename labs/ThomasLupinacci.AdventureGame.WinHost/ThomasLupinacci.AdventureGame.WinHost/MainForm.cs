@@ -72,8 +72,6 @@ namespace ThomasLupinacci.AdventureGame.WinHost
             return _lstboxCharacterList.SelectedItem as Character;
         }
 
-        private Character _character;
-
         private void OnCharacterEdit ( object sender, EventArgs e )
         {
             var menuItem = sender as ToolStripMenuItem;
@@ -106,7 +104,7 @@ namespace ThomasLupinacci.AdventureGame.WinHost
                 return;
 
             //Delete
-            _character = null;
+            _roster.Delete(selectedCharacter.Id);
             UpdateUI();
         }
     }

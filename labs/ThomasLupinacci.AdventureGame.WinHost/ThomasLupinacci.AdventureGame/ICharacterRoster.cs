@@ -31,5 +31,12 @@ namespace ThomasLupinacci.AdventureGame
         /// <param name="character">Character data</param>
         /// <returns>String with error message</returns>
         string Update(int ID, Character character);
+
+        /// <summary>
+        /// Removes a character from the roster.
+        /// </summary>
+        /// <param name="ID">ID of character</param>
+        /// <returns>String with error message</returns>
+        string Delete(int ID);
     }
 }

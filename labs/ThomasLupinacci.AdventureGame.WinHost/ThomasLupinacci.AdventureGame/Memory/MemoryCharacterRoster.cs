@@ -57,6 +57,15 @@ namespace ThomasLupinacci.AdventureGame.Memory
             return "Update Successful!";
         }
 
+        public string Delete(int ID)
+        {
+            if (ID <= 0)
+                return "ID must be greater than 0.";
+
+            _characters.Remove(FindByID(ID));
+            return "Deletion succesful.";
+        }
+
         public Character ValidateCharacter( Character character ) //replace using IValidatableObject
         {
             if (character == null)
