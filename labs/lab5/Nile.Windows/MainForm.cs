@@ -163,10 +163,10 @@ namespace Nile.Windows
             }
         }
 
-        private string GetConnectionString ( string name )
-                => Program.Configuration.GetConnectionString(name);        
+        private static string GetConnectionString ( string name )
+                => Program.Configuration.GetConnectionString(name);
 
-        private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
+        private readonly IProductDatabase _database = new Stores.Sql.SqlProductDatabase(GetConnectionString("ProductDatabase"));
         #endregion
 
         private void OnHelpAbout ( object sender, EventArgs e )
