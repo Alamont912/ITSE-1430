@@ -30,6 +30,16 @@ namespace MovieLib.WebApp.Models
             IsClassic = movie.IsClassic;
         }
 
+        public Movie ToMovie () => new Movie() {
+            Title = Title,
+            Duration = Duration,
+            ReleaseYear = ReleaseYear,
+            Rating = Rating,
+            Genre = Genre,
+            Description = Description,
+            IsClassic = IsClassic
+        };
+
         [Required(AllowEmptyStrings = false)]
         public string Title { get; set; }
 
@@ -41,6 +51,7 @@ namespace MovieLib.WebApp.Models
 
         /// <summary>Gets or sets release year of movie..</summary>
         /// 
+        [Display(Name = "Release Year")]
         [RangeAttribute(Movie.MinimumReleaseYear, 2100)]
         public int ReleaseYear { get; set; } = Movie.MinimumReleaseYear;    //auto-property field-initializer!
         //private int _releaseYear = 1900;     //fields vs. variables
@@ -56,6 +67,8 @@ namespace MovieLib.WebApp.Models
         public string Genre { get; set; }
 
         /// <summary>Gets or sets the classical status of movie.</summary>
+        /// 
+        [Display(Name = "Is Classic")]
         public bool IsClassic { get; set; }
         //private bool _isClassic;
 
